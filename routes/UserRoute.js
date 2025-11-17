@@ -7,7 +7,7 @@ const {
   requireAdmin,
   authenticateHeaderToken,
 } = require('../middleware/auth');
-const { uploadImage } = require('../config/cloudinary');
+const { uploadImage } = require('../Config/cloudinary');
 const {
   registerWithProvider,
   verifyOtp,
