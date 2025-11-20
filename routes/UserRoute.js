@@ -15,6 +15,7 @@ const {
   handleValidationErrors,
   registerUser,
   loginUser,
+  logoutUser,
   verifyOTP,
   resendOTP,
   getUserProfile,
@@ -30,6 +31,7 @@ const {
   updateUserRole,
   createUserByAdmin,
   updateUserByAdmin,
+  checkAdminRights,
 } = require('../controllers/UserController.js');
 
 // const storage = multer.diskStorage({
@@ -113,6 +115,9 @@ UserRouter.post(
   loginUser
 );
 
+// Logout endpoint - clear httpOnly cookies
+UserRouter.post('/logout', logoutUser);
+
 UserRouter.post(
   '/verify-otp',
   [
@@ -143,6 +148,8 @@ UserRouter.post(
   sendOtp
 );
 UserRouter.get('/profile', authenticateToken, getUserProfile);
+UserRouter.get('/nc/profile', authenticateHeaderToken, getUserProfile);
+UserRouter.get('/check-admin', authenticateToken, checkAdminRights);
 UserRouter.put(
   '/profile',
   authenticateToken,

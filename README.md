@@ -1,1 +1,0 @@
-izidoor server

@@ -51,7 +51,13 @@ async function awardPoints(userId, activity, metadata = {}, transaction = null) 
       totalPoints,
       level: newLevel,
       activity,
-      transactionId: pointsTransaction.id
+      transactionId: pointsTransaction.id,
+      rule: {
+        id: rule.id,
+        description: rule.description,
+        descriptionFr: rule.descriptionFr,
+        descriptionAr: rule.descriptionAr
+      }
     };
   } catch (error) {
     console.error('❌ Error awarding points:', error);
@@ -239,16 +245,27 @@ async function awardPOIVisit(userId, poiId, metadata = {}) {
  */
 async function awardCircuitCompletion(userId, circuitId, isPremium = false) {
   try {
+    const pointsAwarded = [];
+    let totalPoints = 0;
+    
     // Award based on circuit type
     const activity = isPremium ? 'COMPLETE_PREMIUM_CIRCUIT' : 'COMPLETE_CIRCUIT';
-    await awardPoints(userId, activity);
+    const mainAward = await awardPoints(userId, activity);
+    if (mainAward) {
+      pointsAwarded.push({
+        activity,
+        points: mainAward.pointsAwarded,
+        description: mainAward.rule?.descriptionFr || mainAward.rule?.description || 'Circuit complété'
+      });
+      totalPoints += mainAward.pointsAwarded;
+    }
     
-    // Check for first circuit
+    // Check for milestone circuits (count AFTER awarding main points)
     const circuitCount = await PointsTransaction.count({
       where: { userId },
       include: [{
         model: require('../models').GamificationRule,
-        as: 'gamificationRule',
+        as: 'rule',
         where: { 
           activity: ['COMPLETE_CIRCUIT', 'COMPLETE_PREMIUM_CIRCUIT']
         }
@@ -256,15 +273,50 @@ async function awardCircuitCompletion(userId, circuitId, isPremium = false) {
     });
     
     if (circuitCount === 1) {
-      await awardPoints(userId, 'COMPLETE_FIRST_CIRCUIT');
+      const firstAward = await awardPoints(userId, 'COMPLETE_FIRST_CIRCUIT');
+      if (firstAward) {
+        pointsAwarded.push({
+          activity: 'COMPLETE_FIRST_CIRCUIT',
+          points: firstAward.pointsAwarded,
+          description: firstAward.rule?.descriptionFr || firstAward.rule?.description || 'Premier circuit complété'
+        });
+        totalPoints += firstAward.pointsAwarded;
+      }
     } else if (circuitCount === 5) {
-      await awardPoints(userId, 'COMPLETE_5_CIRCUITS');
+      const fiveAward = await awardPoints(userId, 'COMPLETE_5_CIRCUITS');
+      if (fiveAward) {
+        pointsAwarded.push({
+          activity: 'COMPLETE_5_CIRCUITS',
+          points: fiveAward.pointsAwarded,
+          description: fiveAward.rule?.descriptionFr || fiveAward.rule?.description || '5 circuits complétés'
+        });
+        totalPoints += fiveAward.pointsAwarded;
+      }
     } else if (circuitCount === 10) {
-      await awardPoints(userId, 'COMPLETE_10_CIRCUITS');
+      const tenAward = await awardPoints(userId, 'COMPLETE_10_CIRCUITS');
+      if (tenAward) {
+        pointsAwarded.push({
+          activity: 'COMPLETE_10_CIRCUITS',
+          points: tenAward.pointsAwarded,
+          description: tenAward.rule?.descriptionFr || tenAward.rule?.description || '10 circuits complétés'
+        });
+        totalPoints += tenAward.pointsAwarded;
+      }
     }
+    
+    return {
+      success: true,
+      totalPoints,
+      pointsAwarded
+    };
     
   } catch (error) {
     console.error('❌ Error awarding circuit completion:', error);
+    return {
+      success: false,
+      totalPoints: 0,
+      pointsAwarded: []
+    };
   }
 }
 

@@ -81,7 +81,7 @@ Look for these messages:
 
 **1. Send OTP:**
 ```bash
-curl -X POST http://localhost:8080/api/auth/otp/send \
+curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/send \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com"
@@ -100,7 +100,7 @@ curl -X POST http://localhost:8080/api/auth/otp/send \
 
 **3. Verify OTP:**
 ```bash
-curl -X POST http://localhost:8080/api/auth/otp/verify \
+curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/verify \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -118,7 +118,7 @@ curl -X POST http://localhost:8080/api/auth/otp/verify \
 
 **4. Register User:**
 ```bash
-curl -X POST http://localhost:8080/api/auth/register \
+curl -X POST https://api-gofez.cleverapps.io/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "John",

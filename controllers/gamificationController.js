@@ -301,15 +301,14 @@ async function getGamificationProfile(req, res) {
       });
     }
 
-    // Calculate total points from transactions
+    // Calculate total points from transactions (include all transactions)
     const transactions = await PointsTransaction.findAll({
       where: { userId },
-      attributes: ['points', 'isClaimed'],
+      attributes: ['points'],
     });
 
-    const totalPoints = transactions
-      .filter((t) => t.dataValues.isClaimed)
-      .reduce((sum, t) => sum + t.points, 0);
+    // Sum all points (consistent with leaderboard calculation)
+    const totalPoints = transactions.reduce((sum, t) => sum + (t.points || 0), 0);
 
     // Calculate level (100 points per level)
     const level = Math.floor(totalPoints / 100) + 1;
@@ -332,7 +331,6 @@ async function getGamificationProfile(req, res) {
     });
   }
 }
-
 /**
  * Get gamification history for the authenticated user
  * Returns all points transactions for the user

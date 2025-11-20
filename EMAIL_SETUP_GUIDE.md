@@ -174,12 +174,12 @@ node test-email.js
 ### Method 2: Test via API
 ```bash
 # Send OTP
-curl -X POST http://localhost:8080/api/auth/otp/send \
+curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/send \
   -H "Content-Type: application/json" \
   -d '{"email":"your-email@gmail.com"}'
 
 # Verify OTP (check your email for the code)
-curl -X POST http://localhost:8080/api/auth/otp/verify \
+curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/verify \
   -H "Content-Type: application/json" \
   -d '{"email":"your-email@gmail.com","otpCode":"123456"}'
 ```

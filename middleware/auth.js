@@ -18,7 +18,7 @@ const authenticateToken = async (req, res, next) => {
   try {
     // Récupération du token depuis le cookie
     const token = req.cookies.tk;
-
+    console.log("Token reçu dans cookie:", token);
     if (!token) {
       return res.status(401).json({
         success: false,

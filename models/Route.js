@@ -10,38 +10,127 @@ const Route = sequelize.define('Route', {
   },
   circuitId: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: true,
     references: {
-        model: 'circuits', // Nom de la table du Circuit
+        model: 'circuits',
         key: 'id',
     },
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
-},
+  },
   userId: {
-            type: DataTypes.INTEGER,
-        // Si DataTypes.INTEGER seul ne suffit pas, essayez DataTypes.INTEGER.UNSIGNED
-        allowNull: false,
-        references: {
-            model: 'users', // Nom de la table de l'Utilisateur
-            key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-             },
- endPoint: {
-            type: DataTypes.JSON, 
-            allowNull: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+        model: 'users',
+        key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  },
+  // New fields for saved routes (navigation from map)
+  poiId: {
+    type: DataTypes.UUID,
+    allowNull: true,
+    // Remove foreign key reference to avoid sync issues
+    // Application will handle referential integrity
+  },
+  poiName: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  poiImage: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  startLocation: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    comment: 'Start coordinates: {lat, lng, address}',
+    get() {
+      const rawValue = this.getDataValue('startLocation');
+      if (!rawValue) return null;
+      if (typeof rawValue === 'string') {
+        try {
+          return JSON.parse(rawValue);
+        } catch (e) {
+          return rawValue;
+        }
+      }
+      return rawValue;
+    }
+  },
+  endLocation: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    comment: 'End coordinates: {lat, lng, address}',
+    get() {
+      const rawValue = this.getDataValue('endLocation');
+      if (!rawValue) return null;
+      if (typeof rawValue === 'string') {
+        try {
+          return JSON.parse(rawValue);
+        } catch (e) {
+          return rawValue;
+        }
+      }
+      return rawValue;
+    }
+  },
+  distance: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+    comment: 'Distance in kilometers',
+  },
+  duration: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+    comment: 'Duration in minutes',
+  },
+  transportMode: {
+    type: DataTypes.ENUM('car', 'foot', 'bike', 'motorcycle'),
+    allowNull: true,
+    defaultValue: 'foot',
+  },
+  routeGeoJSON: {
+    type: DataTypes.JSON,
+    allowNull: true,
+    comment: 'GeoJSON LineString of the route',
+    get() {
+      const rawValue = this.getDataValue('routeGeoJSON');
+      if (!rawValue) return null;
+      if (typeof rawValue === 'string') {
+        try {
+          return JSON.parse(rawValue);
+        } catch (e) {
+          return rawValue;
+        }
+      }
+      return rawValue;
+    }
+  },
+  pointsEarned: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    defaultValue: 0,
+  },
+  completedAt: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
+  endPoint: {
+    type: DataTypes.JSON, 
+    allowNull: true,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
-   },
   isCompleted: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            allowNull: false,
-        },
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+    allowNull: false,
+  },
   isDeleted: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,

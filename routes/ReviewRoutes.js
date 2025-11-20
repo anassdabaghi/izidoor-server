@@ -47,6 +47,39 @@ router.post(
 router.get('/poi/:poiId', reviewController.getReviewsForPOI);
 
 /**
+ * @route   GET /api/reviews/user/my-reviews
+ * @desc    Get user's own reviews with their status
+ * @access  Private (User)
+ * @query   page, limit
+ */
+router.get('/user/my-reviews', authenticateToken, reviewController.getUserReviews);
+
+/**
+ * @route   GET /api/reviews/admin/pending
+ * @desc    Get all reviews for admin moderation
+ * @access  Private (Admin only)
+ * @query   page, limit, status (pending|accepted|denied)
+ */
+router.get('/admin/pending', authenticateToken, reviewController.getPendingReviews);
+
+/**
+ * @route   PUT /api/reviews/admin/approve/:reviewId
+ * @desc    Approve a review
+ * @access  Private (Admin only)
+ * @params  reviewId
+ */
+router.put('/admin/approve/:reviewId', authenticateToken, reviewController.approveReview);
+
+/**
+ * @route   PUT /api/reviews/admin/deny/:reviewId
+ * @desc    Deny a review with reason
+ * @access  Private (Admin only)
+ * @params  reviewId
+ * @body    { reason }
+ */
+router.put('/admin/deny/:reviewId', authenticateToken, reviewController.denyReview);
+
+/**
  * @route   DELETE /api/reviews/:reviewId
  * @desc    Supprimer un avis (par le propriétaire ou un admin)
  * @access  Privé (Propriétaire ou Admin)
