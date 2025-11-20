@@ -45,23 +45,21 @@ const generateTokens = (user) => {
 };
 const generateAndSetTokens = (user, res) => {
   const tokens = generateTokens(user);
-
-  // Cookie pour le token d'accès (tk)
-  res.cookie('tk', tokens.token, {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const baseCookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // HTTPS en production
-    sameSite: 'Lax',
+    secure: isProduction, // requis si sameSite=None
+    sameSite: isProduction ? 'None' : 'Lax',
     maxAge: 24 * 60 * 60 * 1000, // 24 heures
     path: '/',
-  });
+  };
+  // Cookie pour le token d'accès (tk)
+  res.cookie('tk', tokens.token, { ...baseCookieOptions });
 
   // Cookie pour le refresh token
   res.cookie('refreshToken', tokens.refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // HTTPS en production
-    sameSite: 'Lax',
+    ...baseCookieOptions,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
-    path: '/',
   });
 
   return tokens;
@@ -1466,14 +1464,14 @@ const checkAdminRights = async (req, res) => {
     const userId = req.user.userId;
 
     const user = await User.findByPk(userId, {
-      attributes: ['id', 'role', 'email']
+      attributes: ['id', 'role', 'email'],
     });
 
     if (!user) {
       return res.status(404).json({
         success: false,
         message: 'Utilisateur non trouvé',
-        isAdmin: false
+        isAdmin: false,
       });
     }
 
@@ -1482,14 +1480,14 @@ const checkAdminRights = async (req, res) => {
     return res.status(200).json({
       success: true,
       isAdmin: isAdmin,
-      role: user.role
+      role: user.role,
     });
   } catch (error) {
     console.error('Erreur lors de la vérification des droits admin:', error);
     return res.status(500).json({
       success: false,
       message: 'Erreur interne du serveur',
-      isAdmin: false
+      isAdmin: false,
     });
   }
 };
