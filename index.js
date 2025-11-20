@@ -47,7 +47,7 @@ const PORT = process.env.PORT || 8080;
 const ALLOWED_ORIGINS = [
   process.env.CLIENT_URL,
   'http://localhost:3000',
-  'https://go-fez.vercel.app',
+  'https://izidoor.vercel.app',
   'http://localhost:8081', // React Native Web/Expo
   'http://localhost:19006', // Expo Web
   'http://10.0.2.2:8081', // Android Emulator

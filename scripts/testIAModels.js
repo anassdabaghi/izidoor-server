@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 
-const BASE_URL = 'https://api-gofez.cleverapps.io';
+const BASE_URL = 'https://api-izidoor.cleverapps.io';
 
 async function testIAModels() {
     console.log('🧪 Testing IA Models System\n');

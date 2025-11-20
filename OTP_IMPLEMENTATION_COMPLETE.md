@@ -16,7 +16,7 @@ SMTP_SECURE=false                  # true for SSL, false for TLS
 SMTP_USER=younesdarrassi@gmail.com # Your email
 SMTP_PASSWORD=cskj ujwf hyyr jzwq  # Your app password
 FROM_EMAIL=younesdarrassi@gmail.com # Sender email
-FROM_NAME=GO-FEZ                   # Sender name
+FROM_NAME=IZIDoor                   # Sender name
 SKIP_EMAIL=false                   # Set true to disable emails
 ```
 
@@ -38,7 +38,7 @@ SKIP_EMAIL=false                   # Set true to disable emails
 
 ### Step 1: Test SMTP Connection
 ```bash
-cd server-go-fez
+cd server-IZIDoor
 node test-smtp.js
 ```
 
@@ -50,7 +50,7 @@ This will:
 
 ### Step 2: Start the Server
 ```bash
-cd server-go-fez
+cd server-IZIDoor
 npm run dev
 ```
 
@@ -81,7 +81,7 @@ Look for these messages:
 
 **1. Send OTP:**
 ```bash
-curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/send \
+curl -X POST https://api-izidoor.cleverapps.io/api/auth/otp/send \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com"
@@ -100,7 +100,7 @@ curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/send \
 
 **3. Verify OTP:**
 ```bash
-curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/verify \
+curl -X POST https://api-izidoor.cleverapps.io/api/auth/otp/verify \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -118,7 +118,7 @@ curl -X POST https://api-gofez.cleverapps.io/api/auth/otp/verify \
 
 **4. Register User:**
 ```bash
-curl -X POST https://api-gofez.cleverapps.io/api/auth/register \
+curl -X POST https://api-izidoor.cleverapps.io/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "firstName": "John",

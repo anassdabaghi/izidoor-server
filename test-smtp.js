@@ -70,11 +70,11 @@ async function testSMTPConnection() {
     
     const mailOptions = {
       from: {
-        name: process.env.FROM_NAME || 'GO-FEZ',
+        name: process.env.FROM_NAME || 'IZIDoor',
         address: process.env.FROM_EMAIL || process.env.SMTP_USER,
       },
       to: testEmail,
-      subject: '✅ GO-FEZ Email Test - Your SMTP is Working!',
+      subject: '✅ IZIDoor Email Test - Your SMTP is Working!',
       html: `
         <!DOCTYPE html>
         <html>
@@ -94,7 +94,7 @@ async function testSMTPConnection() {
         <body>
           <div class="container">
             <div class="header">
-              <h1>🎉 GO-FEZ Email Test</h1>
+              <h1>🎉 IZIDoor Email Test</h1>
             </div>
             
             <div class="success">
@@ -125,16 +125,16 @@ async function testSMTPConnection() {
             </ul>
             
             <div class="footer">
-              <p>This is an automated test email from GO-FEZ</p>
+              <p>This is an automated test email from IZIDoor</p>
               <p>Sent: ${new Date().toLocaleString()}</p>
-              <p>© ${new Date().getFullYear()} GO-FEZ. All rights reserved.</p>
+              <p>© ${new Date().getFullYear()} IZIDoor. All rights reserved.</p>
             </div>
           </div>
         </body>
         </html>
       `,
       text: `
-🎉 GO-FEZ Email Test
+🎉 IZIDoor Email Test
 
 ✅ SUCCESS! Your SMTP configuration is working correctly.
 
@@ -153,7 +153,7 @@ Next Steps:
 - 🚀 You can now test the signup flow
 
 Sent: ${new Date().toLocaleString()}
-© ${new Date().getFullYear()} GO-FEZ. All rights reserved.
+© ${new Date().getFullYear()} IZIDoor. All rights reserved.
       `,
     };
 
