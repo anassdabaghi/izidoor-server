@@ -1,2 +1,1 @@
 # IZIDOOR SERVER
-latest
