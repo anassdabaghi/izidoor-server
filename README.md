@@ -1,0 +1,2 @@
+# IZIDOOR SERVER
+latest
