@@ -1170,7 +1170,8 @@ exports.getRouteDetailAdmin = async (req, res) => {
                 {
                     model: User,
                     as: 'user',
-                    attributes: ['id', 'firstName', 'lastName', 'email']
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                    required: false // User may be null if deleted or not found
                 },
                 {
                     model: Circuit,
