@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
-const logger = require('./logger'); 
+const logger = require("./logger");
 // Créer une seule instance de Sequelize pour garantir une connexion unique
 class Database {
 	// host contructor
@@ -17,7 +17,7 @@ class Database {
 						connectTimeout: 10000, // Temps d'attente en millisecondes (ici 10 secondes)
 					},
 					logging: false,
-					port: 3306,
+					port: process.env.DB_PASSWORD,
 					pool: {
 						max: 5,
 						min: 0,
@@ -36,18 +36,25 @@ class Database {
 	async initializeDatabase() {
 		try {
 			await this.sequelize.authenticate();
-			logger.info("Connexion à la base de données réussie !"); 
-			if(process.env.ASYNC_DB === 'true') {
-			  await this.sequelize.sync({ alter: true })
-			 .then(() => {
-			   logger.info("Database synchronized"); 
-			   })
-			   .catch((error) => {
-				   logger.error("Error synchronizing the database:", error);
-			   });
+			logger.info("Connexion à la base de données réussie !");
+			if (process.env.ASYNC_DB === "true") {
+				await this.sequelize
+					.sync({ alter: true })
+					.then(() => {
+						logger.info("Database synchronized");
+					})
+					.catch((error) => {
+						logger.error(
+							"Error synchronizing the database:",
+							error
+						);
+					});
 			}
 		} catch (error) {
-			logger.error("Erreur lors de la connexion à la base de données :", error); // <-- Use logger
+			logger.error(
+				"Erreur lors de la connexion à la base de données :",
+				error
+			); // <-- Use logger
 			throw error;
 		}
 	}
@@ -55,9 +62,9 @@ class Database {
 	async closeDatabase() {
 		try {
 			await this.sequelize.close();
-logger.info("Connexion à la base de données fermée !"); 
+			logger.info("Connexion à la base de données fermée !");
 		} catch (error) {
-logger.error(
+			logger.error(
 				"Erreur lors de la fermeture de la connexion :", // <-- Use logger
 				error
 			);
