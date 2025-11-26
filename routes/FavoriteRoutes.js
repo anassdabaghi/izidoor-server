@@ -1,4 +1,4 @@
-// server-go-fez/routes/FavoriteRoutes.js
+// server-izidoor/routes/FavoriteRoutes.js
 
 const express = require('express');
 const router = express.Router();

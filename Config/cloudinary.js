@@ -21,7 +21,7 @@ try {
 const imageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/images',
+    folder: 'izidoor/images',
     allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'],
     transformation: [
       { width: 1200, height: 800, crop: 'limit' },
@@ -36,7 +36,7 @@ const imageStorage = new CloudinaryStorage({
 const circuitImageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/circuits',
+    folder: 'izidoor/circuits',
     allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'],
     transformation: [
       { width: 1200, height: 800, crop: 'limit' },
@@ -51,7 +51,7 @@ const circuitImageStorage = new CloudinaryStorage({
 const themeImageStorage = new CloudinaryStorage({ 
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/themes',  
+    folder: 'izidoor/themes',  
     allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'],
     transformation: [ 
       { width: 1200, height: 800, crop: 'limit' },
@@ -65,7 +65,7 @@ const themeImageStorage = new CloudinaryStorage({
 const cityImageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/cities',
+    folder: 'izidoor/cities',
     allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'],
     transformation: [
       { width: 1200, height: 800, crop: 'limit' },
@@ -80,7 +80,7 @@ const cityImageStorage = new CloudinaryStorage({
 const categoryIconStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/categories',
+    folder: 'izidoor/categories',
     allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'avif', 'svg'],
     transformation: [
       { width: 1200, height: 800, crop: 'limit' },
@@ -96,7 +96,7 @@ const categoryIconStorage = new CloudinaryStorage({
 const audioStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/audio',
+    folder: 'izidoor/audio',
     resource_type: 'video', // Cloudinary traite les audio comme des vidéos
     allowed_formats: ['mp3', 'wav', 'ogg', 'm4a', 'aac','mp4','m4a'],
     transformation: [
@@ -109,7 +109,7 @@ const audioStorage = new CloudinaryStorage({
 const videoStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/videos',
+    folder: 'izidoor/videos',
     resource_type: 'video',
     allowed_formats: ['mp4', 'mov', 'avi', 'webm'],
     transformation: [
@@ -122,7 +122,7 @@ const videoStorage = new CloudinaryStorage({
 const virtualTourStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'go-fez/virtual-tours',
+    folder: 'izidoor/virtual-tours',
     resource_type: 'video',
     allowed_formats: ['mp4', 'mov', 'webm'],
     transformation: [
@@ -285,7 +285,7 @@ const uploadMultipleFiles = async (files, folder = "", options = {}) => {
 };
 
 // Fonction pour uploader un fichier POI
-const uploadPoiFile = async (fileBuffer, fileType, folder = "go-fez") => {
+const uploadPoiFile = async (fileBuffer, fileType, folder = "izidoor") => {
   try {
     let cloudinaryFolder = `${folder}/images`;
     let resourceType = 'image';
@@ -311,7 +311,7 @@ const uploadPoiFile = async (fileBuffer, fileType, folder = "go-fez") => {
 };
 
 // Fonction pour uploader plusieurs fichiers POI en une fois
-const uploadMultiplePoiFiles = async (files, fileType, folder = "go-fez/poi") => {
+const uploadMultiplePoiFiles = async (files, fileType, folder = "izidoor/poi") => {
   try {
     let cloudinaryFolder = `${folder}/images`;
     let resourceType = 'image';

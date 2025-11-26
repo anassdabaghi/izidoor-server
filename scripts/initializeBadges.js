@@ -1,4 +1,4 @@
-// server-go-fez/scripts/initializeBadges.js
+// server-izidoor/scripts/initializeBadges.js
 const { Badge } = require('../models');
 
 const defaultBadges = [

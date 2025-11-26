@@ -1,4 +1,4 @@
-// server-go-fez/routes/StatisticsRoutes.js
+// server-izidoor/routes/StatisticsRoutes.js
 
 const express = require('express');
 const router = express.Router();

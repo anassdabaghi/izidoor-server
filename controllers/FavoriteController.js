@@ -1,4 +1,4 @@
-// server-go-fez/controllers/FavoriteController.js
+// server-izidoor/controllers/FavoriteController.js
 
 const {
 	UserFavorite,

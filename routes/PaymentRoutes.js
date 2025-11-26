@@ -1,4 +1,4 @@
-// server-go-fez/routes/PaymentRoutes.js
+// server-izidoor/routes/PaymentRoutes.js
 
 const express = require('express');
 const router = express.Router();

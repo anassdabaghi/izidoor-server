@@ -1,4 +1,4 @@
-// server-go-fez/scripts/initializeGamification.js
+// server-izidoor/scripts/initializeGamification.js
 const { GamificationRule } = require('../models');
 
 const gamificationRules = [

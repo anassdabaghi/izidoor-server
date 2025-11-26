@@ -1,4 +1,4 @@
-// server-go-fez/controllers/ReviewController.js
+// server-izidoor/controllers/ReviewController.js
 
 const { Review, POI, User, sequelize } = require('../models');
 const { Op } = require('sequelize');
@@ -97,7 +97,7 @@ exports.createReview = async (req, res) => {
 		if (req.files && req.files.length > 0) {
 			for (const file of req.files) {
 				try {
-					const result = await uploadFromBuffer(file.buffer, 'go-fez/reviews');
+					const result = await uploadFromBuffer(file.buffer, 'izidoor/reviews');
 					photoUrls.push(result.secure_url);
 				} catch (e) { console.warn('Upload failed:', e.message); }
 			}

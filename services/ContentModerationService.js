@@ -1,4 +1,4 @@
-// server-go-fez/services/ContentModerationService.js
+// server-izidoor/services/ContentModerationService.js
 
 const { IAModel } = require('../models/IAModel');
 const logger = require('../Config/logger');

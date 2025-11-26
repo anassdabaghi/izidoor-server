@@ -1,4 +1,4 @@
-// server-go-fez/models/UserBadge.js
+// server-izidoor/models/UserBadge.js
 const { DataTypes } = require("sequelize");
 const db = require('../Config/db');
 

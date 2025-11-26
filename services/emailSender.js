@@ -29,9 +29,9 @@ const verifyOTPCode = async (otp, hashedOtp) => {
 const sendVerificationEmail = async (email, otp, userName = '') => {
   try {
     const mailOptions = {
-      from: `"${process.env.FROM_NAME || 'GO-FEZ'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
+      from: `"${process.env.FROM_NAME || 'izidoor'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
       to: email,
-      subject: 'Vérification de votre email - GO-FEZ',
+      subject: 'Vérification de votre email - izidoor',
       html: `
         <!DOCTYPE html>
         <html>
@@ -133,13 +133,13 @@ const sendVerificationEmail = async (email, otp, userName = '') => {
         <body>
           <div class="container">
             <div class="header">
-              <img src="https://i.postimg.cc/K8hYSMyW/logo-nonhomepage.png" alt="GO-FEZ Logo" class="logo-img" />
+              <img src="https://i.postimg.cc/K8hYSMyW/logo-nonhomepage.png" alt="izidoor Logo" class="logo-img" />
               <h1 class="title">Vérifiez votre email</h1>
             </div>
             
             <div class="content">
               <p>Bonjour${userName ? ` <strong>${userName}</strong>` : ''},</p>
-              <p>Merci de vous inscrire sur <strong>GO-FEZ</strong> ! Pour continuer, veuillez vérifier votre adresse email en utilisant le code ci-dessous :</p>
+              <p>Merci de vous inscrire sur <strong>izidoor</strong> ! Pour continuer, veuillez vérifier votre adresse email en utilisant le code ci-dessous :</p>
             </div>
             
             <div class="otp-box">
@@ -152,15 +152,15 @@ const sendVerificationEmail = async (email, otp, userName = '') => {
             </div>
             
             <div class="content">
-              <p>Une fois votre email vérifié, vous pourrez profiter pleinement de votre expérience sur GO-FEZ et découvrir les merveilles de Fès !</p>
+              <p>Une fois votre email vérifié, vous pourrez profiter pleinement de votre expérience sur izidoor et découvrir les merveilles de Fès !</p>
               <p>Bonne exploration ! 🗺️</p>
             </div>
             
             <div class="footer">
-              <p>Cet email a été envoyé par <strong>GO-FEZ</strong></p>
-              <p>Vous avez des questions ? <a href="mailto:support@go-fez.com" class="footer-link">Contactez-nous</a></p>
+              <p>Cet email a été envoyé par <strong>izidoor</strong></p>
+              <p>Vous avez des questions ? <a href="mailto:support@izidoor.com" class="footer-link">Contactez-nous</a></p>
               <p style="margin-top: 15px; color: #9ca3af; font-size: 12px;">
-                © ${new Date().getFullYear()} GO-FEZ. Tous droits réservés.
+                © ${new Date().getFullYear()} izidoor. Tous droits réservés.
               </p>
             </div>
           </div>
@@ -184,9 +184,9 @@ const sendVerificationEmail = async (email, otp, userName = '') => {
 const sendPasswordResetEmail = async (email, otp, userName = '') => {
   try {
     const mailOptions = {
-      from: `"${process.env.FROM_NAME || 'GO-FEZ'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
+      from: `"${process.env.FROM_NAME || 'izidoor'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
       to: email,
-      subject: 'Réinitialisation de votre mot de passe - GO-FEZ',
+      subject: 'Réinitialisation de votre mot de passe - izidoor',
       html: `
         <!DOCTYPE html>
         <html>
@@ -288,13 +288,13 @@ const sendPasswordResetEmail = async (email, otp, userName = '') => {
         <body>
           <div class="container">
             <div class="header">
-              <img src="https://i.postimg.cc/K8hYSMyW/logo-nonhomepage.png" alt="GO-FEZ Logo" class="logo-img" />
+              <img src="https://i.postimg.cc/K8hYSMyW/logo-nonhomepage.png" alt="izidoor Logo" class="logo-img" />
               <h1 class="title">Réinitialisation du mot de passe</h1>
             </div>
             
             <div class="content">
               <p>Bonjour${userName ? ` <strong>${userName}</strong>` : ''},</p>
-              <p>Vous avez demandé la réinitialisation de votre mot de passe sur <strong>GO-FEZ</strong>. Utilisez le code ci-dessous pour continuer :</p>
+              <p>Vous avez demandé la réinitialisation de votre mot de passe sur <strong>izidoor</strong>. Utilisez le code ci-dessous pour continuer :</p>
             </div>
             
             <div class="otp-box">
@@ -311,10 +311,10 @@ const sendPasswordResetEmail = async (email, otp, userName = '') => {
             </div>
             
             <div class="footer">
-              <p>Cet email a été envoyé par <strong>GO-FEZ</strong></p>
-              <p>Vous avez des questions ? <a href="mailto:support@go-fez.com" class="footer-link">Contactez-nous</a></p>
+              <p>Cet email a été envoyé par <strong>izidoor</strong></p>
+              <p>Vous avez des questions ? <a href="mailto:support@izidoor.com" class="footer-link">Contactez-nous</a></p>
               <p style="margin-top: 15px; color: #9ca3af; font-size: 12px;">
-                © ${new Date().getFullYear()} GO-FEZ. Tous droits réservés.
+                © ${new Date().getFullYear()} izidoor. Tous droits réservés.
               </p>
             </div>
           </div>

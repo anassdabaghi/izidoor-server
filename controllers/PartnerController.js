@@ -1,4 +1,4 @@
-// server-go-fez/controllers/PartnerController.js
+// server-izidoor/controllers/PartnerController.js
 
 const { Partner, PartnerVisit, sequelize } = require('../models');
 const { uploadFromBuffer, deleteFile } = require('../Config/cloudinary');
@@ -43,7 +43,7 @@ exports.createPartner = async (req, res) => {
 			try {
 				const result = await uploadFromBuffer(
 					req.file.buffer,
-					'go-fez/partners/logos'
+					'izidoor/partners/logos'
 				);
 				logoUrl = result.secure_url;
 				logoPublicId = result.public_id;
@@ -178,7 +178,7 @@ exports.updatePartner = async (req, res) => {
 			try {
 				const result = await uploadFromBuffer(
 					req.file.buffer,
-					'go-fez/partners/logos'
+					'izidoor/partners/logos'
 				);
 				partnerData.logo = result.secure_url;
 				// partnerData.logoPublicId = result.public_id;

@@ -1,4 +1,4 @@
-// server-go-fez/controllers/CircuitProgressController.js
+// server-izidoor/controllers/CircuitProgressController.js
 
 const {
 	CircuitProgress,

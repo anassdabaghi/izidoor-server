@@ -1,4 +1,4 @@
-// server-go-fez/services/GamificationService.js
+// server-izidoor/services/GamificationService.js
 const { GamificationRule, Badge, UserBadge } = require('../models');
 const PointsTransaction = require('../models/PointsTransaction');
 const { User } = require('../models/User');

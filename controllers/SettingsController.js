@@ -11,7 +11,7 @@ const initializeDefaultSettings = async () => {
         },
         {
             key: 'app_name',
-            value: 'GO-FEZ',
+            value: 'izidoor',
             type: 'string',
             description: 'Application name'
         }

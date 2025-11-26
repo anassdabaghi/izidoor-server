@@ -1,4 +1,4 @@
-// server-go-fez/controllers/PaymentController.js
+// server-izidoor/controllers/PaymentController.js
 
 const { Subscription, User, sequelize } = require('../models');
 

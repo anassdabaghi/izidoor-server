@@ -1,4 +1,4 @@
-// server-go-fez/routes/PartnerRoutes.js
+// server-izidoor/routes/PartnerRoutes.js
 
 const express = require('express');
 const router = express.Router();

@@ -1,4 +1,4 @@
-// server-go-fez/models/Partner.js
+// server-izidoor/models/Partner.js
 const { DataTypes } = require("sequelize");
 const db = require('../Config/db');
 const sequelize = db.getSequelize();

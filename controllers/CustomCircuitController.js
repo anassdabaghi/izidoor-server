@@ -1,4 +1,4 @@
-// server-go-fez/controllers/CustomCircuitController.js
+// server-izidoor/controllers/CustomCircuitController.js
 
 const { CustomCircuit, POI, POILocalization, POIFile } = require('../models');
 const xss = require('xss');

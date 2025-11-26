@@ -1,4 +1,4 @@
-// server-go-fez/models/CircuitProgress.js
+// server-izidoor/models/CircuitProgress.js
 const { DataTypes } = require("sequelize");
 const db = require('../Config/db');
 

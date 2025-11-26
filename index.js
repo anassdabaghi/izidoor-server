@@ -47,6 +47,7 @@ const PORT = process.env.PORT || 8080;
 const ALLOWED_ORIGINS = [
   process.env.CLIENT_URL,
   'http://localhost:3000',
+  'http://localhost:3001',
   'https://izidoor.vercel.app',
   'http://localhost:8081', // React Native Web/Expo
   'http://localhost:19006', // Expo Web
@@ -179,7 +180,7 @@ db.initializeDatabase()
   .then(async () => {
     // Démarrer le serveur
     startServer();
-    console.log('✅ Application GO-FEZ initialisée avec succès');
+    console.log('✅ Application izidoor initialisée avec succès');
     seedDefaultGamifications();
   })
   .catch((error) => {

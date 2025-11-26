@@ -1,4 +1,4 @@
-// server-go-fez/controllers/ShareController.js
+// server-izidoor/controllers/ShareController.js
 
 const { Share, sequelize } = require('../models');
 const { awardPoints } = require('../services/GamificationService');

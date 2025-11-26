@@ -1,4 +1,4 @@
-// server-go-fez/services/OtpService.js
+// server-izidoor/services/OtpService.js
 //const twilio = require('twilio');
 
 // Initialize Twilio client

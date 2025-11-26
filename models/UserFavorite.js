@@ -1,4 +1,4 @@
-// server-go-fez/models/UserFavorite.js
+// server-izidoor/models/UserFavorite.js
 const { DataTypes } = require("sequelize");
 const db = require('../Config/db');
 

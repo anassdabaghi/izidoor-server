@@ -1,4 +1,4 @@
-// server-go-fez/models/CustomCircuit.js
+// server-izidoor/models/CustomCircuit.js
 const { DataTypes } = require("sequelize");
 const db = require('../Config/db');
 const sequelize = db.getSequelize();

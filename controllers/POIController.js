@@ -62,7 +62,7 @@ if (arLoc && arLoc.name) {
       // console.log('📥 [AR AUDIO] File received:', ...);
       const audioResult = await uploadFromBuffer(
         req.files.ar_audio[0].buffer,
-        'go-fez/audio/arabic',
+        'izidoor/audio/arabic',
         { resource_type: 'video' }
       );
       // ✅ Sauvegarder l'objet complet
@@ -91,7 +91,7 @@ if (frLoc && frLoc.name) {
     try {
       const audioResult = await uploadFromBuffer(
         req.files.fr_audio[0].buffer,
-        'go-fez/audio/french',
+        'izidoor/audio/french',
         { resource_type: 'video' }
       );
       // ✅ Sauvegarder l'objet complet
@@ -119,7 +119,7 @@ if (enLoc && enLoc.name) {
     try {
       const audioResult = await uploadFromBuffer(
         req.files.en_audio[0].buffer,
-        'go-fez/audio/english',
+        'izidoor/audio/english',
         { resource_type: 'video' }
       );
        // ✅ Sauvegarder l'objet complet
@@ -561,7 +561,7 @@ if (req.body.audioToRemove) {
 
           const audioResult = await uploadFromBuffer(
             req.files[`${lang}_audio`][0].buffer,
-            `go-fez/audio/${folder}`,
+            `izidoor/audio/${folder}`,
             { resource_type: 'video' }
           );
 

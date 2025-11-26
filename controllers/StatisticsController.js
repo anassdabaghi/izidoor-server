@@ -1,4 +1,4 @@
-// server-go-fez/controllers/StatisticsController.js
+// server-izidoor/controllers/StatisticsController.js
 
 const {
 	User,
@@ -338,6 +338,10 @@ const getPOICategoryDistribution = async (req, res) => {
 						name: categoryName,
 						count: 0,
 						id: categoryId,
+						// Store all localizations for frontend
+						fr: parseFr,
+						en: parseEn,
+						ar: parseAr,
 						// Assign color from palette dynamically
 						color: colorPalette[colorIndex % colorPalette.length]
 					};
@@ -354,7 +358,11 @@ const getPOICategoryDistribution = async (req, res) => {
 				name: item.name,
 				color: item.color,
 				count: item.count,
-				percentage: total > 0 ? Math.round((item.count / total) * 100) : 0
+				percentage: total > 0 ? Math.round((item.count / total) * 100) : 0,
+				// Include localizations for frontend
+				fr: item.fr,
+				en: item.en,
+				ar: item.ar
 			}))
 			// Sort by count (highest first)
 			.sort((a, b) => b.count - a.count);
