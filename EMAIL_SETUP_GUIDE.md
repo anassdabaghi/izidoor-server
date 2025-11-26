@@ -1,4 +1,4 @@
-# Email SMTP Setup Guide - GO-FEZ
+# Email SMTP Setup Guide - IZIDoor
 
 This guide explains how to configure email sending using generic SMTP settings that work with any email provider.
 
@@ -14,7 +14,7 @@ SMTP_SECURE=false                  # true for SSL (port 465), false for TLS (por
 SMTP_USER=your-email@gmail.com     # Your email address
 SMTP_PASSWORD=your-app-password    # Your email password or app-specific password
 FROM_EMAIL=your-email@gmail.com    # Email address to send from
-FROM_NAME=GO-FEZ                   # Display name for emails
+FROM_NAME=IZIDoor                   # Display name for emails
 SKIP_EMAIL=false                   # Set to 'true' to disable email sending in development
 ```
 
@@ -28,7 +28,7 @@ SMTP_SECURE=false
 SMTP_USER=youremail@gmail.com
 SMTP_PASSWORD=your-16-digit-app-password
 FROM_EMAIL=youremail@gmail.com
-FROM_NAME=GO-FEZ
+FROM_NAME=IZIDoor
 ```
 
 **⚠️ Important for Gmail:**
@@ -47,7 +47,7 @@ SMTP_SECURE=false
 SMTP_USER=youremail@outlook.com
 SMTP_PASSWORD=your-password
 FROM_EMAIL=youremail@outlook.com
-FROM_NAME=GO-FEZ
+FROM_NAME=IZIDoor
 ```
 
 ### SendGrid
@@ -58,7 +58,7 @@ SMTP_SECURE=false
 SMTP_USER=apikey
 SMTP_PASSWORD=your-sendgrid-api-key
 FROM_EMAIL=verified-sender@yourdomain.com
-FROM_NAME=GO-FEZ
+FROM_NAME=IZIDoor
 ```
 
 ### Mailgun
@@ -69,7 +69,7 @@ SMTP_SECURE=false
 SMTP_USER=postmaster@your-domain.mailgun.org
 SMTP_PASSWORD=your-mailgun-smtp-password
 FROM_EMAIL=noreply@your-domain.com
-FROM_NAME=GO-FEZ
+FROM_NAME=IZIDoor
 ```
 
 ### Custom SMTP Server
@@ -80,7 +80,7 @@ SMTP_SECURE=false
 SMTP_USER=noreply@yourdomain.com
 SMTP_PASSWORD=your-password
 FROM_EMAIL=noreply@yourdomain.com
-FROM_NAME=GO-FEZ
+FROM_NAME=IZIDoor
 ```
 
 ## 🔐 Port Selection Guide
@@ -167,19 +167,19 @@ Content-Type: application/json
 
 ### Method 1: Run Test Script
 ```bash
-cd server-go-fez
+cd server-IZIDoor
 node test-email.js
 ```
 
 ### Method 2: Test via API
 ```bash
 # Send OTP
-curl -X POST http://localhost:8080/api/auth/otp/send \
+curl -X POST https://api-izidoor.cleverapps.io/api/auth/otp/send \
   -H "Content-Type: application/json" \
   -d '{"email":"your-email@gmail.com"}'
 
 # Verify OTP (check your email for the code)
-curl -X POST http://localhost:8080/api/auth/otp/verify \
+curl -X POST https://api-izidoor.cleverapps.io/api/auth/otp/verify \
   -H "Content-Type: application/json" \
   -d '{"email":"your-email@gmail.com","otpCode":"123456"}'
 ```
@@ -238,7 +238,7 @@ Set `SKIP_EMAIL=true` to disable email sending. The OTP code will be printed in 
 
 The OTP email includes:
 - Professional HTML design
-- Gradient header with GO-FEZ branding
+- Gradient header with IZIDoor branding
 - Large, easy-to-read OTP code
 - Expiration warning (10 minutes)
 - Mobile-responsive layout

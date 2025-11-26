@@ -20,10 +20,9 @@ const VisitedTrace = sequelize.define('VisitedTrace', {
     type: DataTypes.DECIMAL(10, 7),
     allowNull: false,
   },
-  poiId: {
+  idPoi: {
     type: DataTypes.UUID,
     allowNull: true,
-
   },
   isDeleted: {
     type: DataTypes.BOOLEAN,

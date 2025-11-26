@@ -65,12 +65,6 @@ const Review = sequelize.define('Review', {
         allowNull: true,
         comment: 'Rapport de modération/raison du rejet',
     },
-    helpfulCount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
-        comment: 'Nombre de personnes ayant trouvé l\'avis utile',
-    },
     isDeleted: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

@@ -52,7 +52,7 @@ The IA Models system provides **fast, batch translation** capabilities using mul
 Run the initialization script to create default model configurations:
 
 ```bash
-cd server-go-fez
+cd server-IZIDoor
 node scripts/initializeIAModels.js
 ```
 

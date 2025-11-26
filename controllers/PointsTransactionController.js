@@ -78,7 +78,7 @@ async function findUserTransactions(req, res) {
         const transactions = await PointsTransaction.findAll({
             where: { userId },
             order: [['createdAt', 'DESC']],
-            include: [{ model: GamificationRule, as: 'rule' }], 
+            include: [{ model: GamificationRule, as: 'gamificationRule' }], 
         });
 
         res.status(200).json({ status: "success", data: transactions });

@@ -214,8 +214,9 @@ PointsTransaction.belongsTo(User, {
 // Associations PointsTransaction ↔ GamificationRule (1.1)
 PointsTransaction.belongsTo(GamificationRule, {
   foreignKey: 'gamificationRuleId',
-  as: 'rule',
+  as: 'rule', // Changed from 'rule' to match service usage
   onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
 });
 GamificationRule.hasMany(PointsTransaction, {
   foreignKey: 'gamificationRuleId',
@@ -243,6 +244,13 @@ Review.belongsTo(Circuit, {
 POI.hasMany(Review, {
   foreignKey: 'poiId',
   as: 'reviews',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+
+Review.belongsTo(POI, {
+  foreignKey: 'poiId',
+  as: 'poi',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE',
 });
@@ -382,13 +390,19 @@ Route.belongsTo(User, {
   foreignKey: 'userId',
   as: 'user',
 });
+Route.belongsTo(POI, {
+  foreignKey: 'poiId',
+  as: 'navigationPOI',
+});
 Route.hasMany(VisitedTrace, { foreignKey: 'routeId', as: 'visitedTraces' });
+Route.hasMany(RemovedTrace, { foreignKey: 'routeId', as: 'removedTraces' });
 
 // VisitedTrace
 VisitedTrace.belongsTo(Route, { foreignKey: 'routeId', as: 'route' });
 VisitedTrace.belongsTo(POI, { foreignKey: 'idPoi', as: 'poi' });
 
 // RemovedTrace
+RemovedTrace.belongsTo(Route, { foreignKey: 'routeId', as: 'route' });
 RemovedTrace.belongsTo(Circuit, { foreignKey: 'circuitId', as: 'circuit' });
 RemovedTrace.belongsTo(POI, { foreignKey: 'poiId', as: 'poi' });
 RemovedTrace.belongsTo(User, { foreignKey: 'userId', as: 'user' });

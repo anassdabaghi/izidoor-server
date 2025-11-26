@@ -47,17 +47,54 @@ const PORT = process.env.PORT || 8080;
 const ALLOWED_ORIGINS = [
   process.env.CLIENT_URL,
   'http://localhost:3000',
+  'https://izidoor.vercel.app',
+  'http://localhost:8081', // React Native Web/Expo
+  'http://localhost:19006', // Expo Web
+  'http://10.0.2.2:8081', // Android Emulator
+  'http://10.56.42.19:8081', // Physical device on same network
+  'http://10.56.42.19:19000', // Expo on physical device
+  'http://10.56.42.19:19006', // Expo Web on physical device
   'null',
 ];
 
-console.log(process.env.CLIENT_URL);
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      // Allow all localhost and local network origins in development
+      if (process.env.NODE_ENV !== 'production') {
+        // Allow localhost with any port
+        if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+          callback(null, true);
+          return;
+        }
+
+        // Allow local network IPs (192.168.x.x, 10.x.x.x, 172.16-31.x.x)
+        const localIpPattern =
+          /^https?:\/\/(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/;
+        if (localIpPattern.test(origin)) {
+          console.log('✅ Local network origin allowed:', origin);
+          callback(null, true);
+          return;
+        }
+      }
+
+      // Check allowed origins list
+      if (ALLOWED_ORIGINS.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error('Not allowed by CORS'), false);
+        console.log('❌ CORS blocked origin:', origin);
+        // In production, reject unauthorized origins; in development, allow all
+        if (process.env.NODE_ENV === 'production') {
+          callback(new Error('Not allowed by CORS'), false);
+        } else {
+          callback(null, true); // Allow all in development
+        }
       }
     },
     credentials: true,
@@ -67,6 +104,7 @@ app.use(
       'Authorization',
       'X-CSRF-Token',
       'x-method',
+      'Accept',
     ],
     exposedHeaders: ['Content-Range', 'X-Content-Range', 'X-CSRF-Token'],
     preflightContinue: false,
@@ -74,7 +112,13 @@ app.use(
   })
 );
 
-app.use(helmet()); // Ajouter des en-têtes de sécurité
+// Configuration Helmet pour permettre les requêtes depuis les apps mobiles
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+    crossOriginEmbedderPolicy: false,
+  })
+); // Ajouter des en-têtes de sécurité
 
 // Middleware pour parser les cookies
 app.use(cookieParser());

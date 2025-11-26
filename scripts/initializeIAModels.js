@@ -15,7 +15,7 @@ async function initializeIAModels() {
 
         // Suggested models for each provider
         const suggestedModels = {
-            gemini: ['gemini-2.0-flash-exp', 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-pro'],
+            gemini: ['gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-2.0-flash', 'gemini-2.5-pro'],
             grok: ['grok-beta', 'grok-2-latest', 'grok-2-vision-1212'],
             openai: ['gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-4', 'gpt-3.5-turbo']
         };
@@ -24,7 +24,7 @@ async function initializeIAModels() {
         await IAModel.create({
             provider: 'gemini',
             models_list: suggestedModels.gemini,
-            selected_model: 'gemini-2.0-flash-exp',
+            selected_model: 'gemini-2.5-flash',
             api_key: null, // To be configured by admin
             api_endpoint: 'https://generativelanguage.googleapis.com/v1beta/models',
             prompt: 'You are a professional multilingual translator. Translate text accurately to multiple languages simultaneously. Return ONLY a JSON object with language codes as keys and translations as values. No explanations, no markdown, just clean JSON.',

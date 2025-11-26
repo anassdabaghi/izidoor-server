@@ -45,23 +45,24 @@ const generateTokens = (user) => {
 };
 const generateAndSetTokens = (user, res) => {
   const tokens = generateTokens(user);
+  const isProduction = process.env.NODE_ENV === 'production';
+  const baseCookieOptions = {
+    httpOnly: true,
+    secure: isProduction, // requis si sameSite=None
+    sameSite: isProduction ? 'None' : 'Lax',
+    path: '/',
+  };
 
   // Cookie pour le token d'accès (tk)
   res.cookie('tk', tokens.token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // HTTPS en production
-    sameSite: 'Lax',
+    ...baseCookieOptions,
     maxAge: 24 * 60 * 60 * 1000, // 24 heures
-    path: '/',
   });
 
   // Cookie pour le refresh token
   res.cookie('refreshToken', tokens.refreshToken, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production', // HTTPS en production
-    sameSite: 'Lax',
+    ...baseCookieOptions,
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
-    path: '/',
   });
 
   return tokens;
@@ -254,13 +255,16 @@ const loginUser = async (req, res) => {
       createdAt: user.createdAt,
     };
 
-    console.log('tokens : \n\n', tokens);
+    console.log('Tokens set in httpOnly cookies');
 
     const responseData = {
       success: true,
       message: 'Connexion réussie',
       user: userResponse,
-      tokens: tokens,
+      // token and refresh token should be removed from response body for security reasons
+      //the web apps(izidoor, go-fes) doesnt use it , but mobile apps need it
+      token: tokens.token,
+      refreshToken: tokens.refreshToken,
     };
 
     console.log('Response being sent:', JSON.stringify(responseData, null, 2));
@@ -1135,7 +1139,7 @@ const resetPassword = async (req, res) => {
       message:
         'Mot de passe réinitialisé avec succès. Vous êtes maintenant connecté.',
       user: userResponse,
-      tokens: tokens,
+      // Note: tokens are sent via httpOnly cookies, not in response body
     });
   } catch (error) {
     console.error('Erreur lors de la réinitialisation du mot de passe:', error);
@@ -1206,8 +1210,18 @@ const deleteUser = async (req, res) => {
       });
     }
 
-    res.clearCookie('accessToken');
-    res.clearCookie('refreshToken');
+    // Use the same cookie options as generateAndSetTokens
+    const isProduction = process.env.NODE_ENV === 'production';
+    const baseCookieOptions = {
+      httpOnly: true,
+      secure: isProduction, // requis si sameSite=None
+      sameSite: isProduction ? 'None' : 'Lax',
+      path: '/',
+    };
+
+    // Clear httpOnly cookies with matching options
+    res.clearCookie('tk', baseCookieOptions);
+    res.clearCookie('refreshToken', baseCookieOptions);
 
     res.status(200).json({
       success: true,
@@ -1457,6 +1471,69 @@ const updateUserByAdmin = async (req, res) => {
   }
 };
 
+// Check if user has admin or moderator rights
+const checkAdminRights = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const user = await User.findByPk(userId, {
+      attributes: ['id', 'role', 'email']
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'Utilisateur non trouvé',
+        isAdmin: false
+      });
+    }
+
+    const isAdmin = user.role === 'admin';
+
+    return res.status(200).json({
+      success: true,
+      isAdmin: isAdmin,
+      role: user.role
+    });
+  } catch (error) {
+    console.error('Erreur lors de la vérification des droits admin:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Erreur interne du serveur',
+      isAdmin: false
+    });
+  }
+};
+
+// Logout endpoint - clear httpOnly cookies
+const logoutUser = async (req, res) => {
+  try {
+    // Use the same cookie options as generateAndSetTokens
+    const isProduction = process.env.NODE_ENV === 'production';
+    const baseCookieOptions = {
+      httpOnly: true,
+      secure: isProduction, // requis si sameSite=None
+      sameSite: isProduction ? 'None' : 'Lax',
+      path: '/',
+    };
+
+    // Clear httpOnly cookies with matching options
+    res.clearCookie('tk', baseCookieOptions);
+    res.clearCookie('refreshToken', baseCookieOptions);
+
+    res.status(200).json({
+      success: true,
+      message: 'Déconnexion réussie',
+    });
+  } catch (error) {
+    console.error('Erreur lors de la déconnexion:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Erreur interne du serveur',
+    });
+  }
+};
+
 module.exports = {
   registerWithProvider,
   verifyOtp,
@@ -1464,6 +1541,7 @@ module.exports = {
   handleValidationErrors,
   registerUser,
   loginUser,
+  logoutUser,
   verifyOTP,
   resendOTP,
   getUserProfile,
@@ -1478,5 +1556,6 @@ module.exports = {
   suspendUser,
   updateUserRole,
   createUserByAdmin,
+  checkAdminRights,
   updateUserByAdmin,
 };
