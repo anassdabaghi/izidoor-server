@@ -135,6 +135,8 @@ const limiter = rateLimit({
 app.use(limiter);
 
 const jsonMiddleware = express.json({ limit: '50mb' });
+// IMPORTANT: Ajouter urlencoded pour parser les champs texte dans multipart/form-data
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Routes avec files (multer)
 app.use('/api/themes/', ThemeRoute);
